@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@SuppressWarnings("unused")
 public class ContactServiceImpl implements IContactService {
 
     private final IContactRepository contactRepository;
@@ -22,5 +21,10 @@ public class ContactServiceImpl implements IContactService {
     @Override
     public List<Contact> findAll() {
         return contactRepository.findAll();
+    }
+
+    @Override
+    public Contact create(Contact contact) {
+        return contactRepository.save(contact);
     }
 }
