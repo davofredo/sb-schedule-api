@@ -4,14 +4,13 @@ import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.repository.IContactRepository;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-@SuppressWarnings("unused")
-public class MockContactRepositoryImpl{
+public class MockContactRepositoryImpl implements IContactRepository {
     private static final List<Contact> CONTACT_LIST;
 
     static {
@@ -65,7 +64,14 @@ public class MockContactRepositoryImpl{
         CONTACT_LIST.add(contact);
     }
 
+    @Override
     public List<Contact> findAll() {
         return CONTACT_LIST.stream().map(Contact::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public Contact save(Contact contact) throws IOException {
+        CONTACT_LIST.add(new Contact(contact));
+        return new Contact(contact);
     }
 }
