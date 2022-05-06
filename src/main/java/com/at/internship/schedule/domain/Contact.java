@@ -3,18 +3,34 @@ package com.at.internship.schedule.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "tbl_contact") /**Mapea a una tabla con el nombre*/
 public class Contact {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
     private String emailAddress;
+    @Deprecated /**Adevertencia que un componente esta obsoleto y desaparecerá*/
     private String phoneNumber;
     private LocalDate birthDay;
+    @Column(insertable = false, updatable = false)
+    private LocalDateTime createData;
+    @Column(insertable = false)
+    private LocalDateTime lastUpdateDate;
+    @Transient /**No se va a serializar, solo para usarse en la memoria*/
+    private List<ContactPhone> phoneNumbers;
 
     public Contact(Contact source) {
         if(source == null)

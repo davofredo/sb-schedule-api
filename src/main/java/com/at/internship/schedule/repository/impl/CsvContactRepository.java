@@ -8,7 +8,7 @@ import com.at.internship.lib.specification.SpecificationUtils;
 
 import java.util.List;
 
-public class CsvContactRepository extends AbstractRepository<Contact, Integer> implements IContactRepository {
+public class CsvContactRepository extends AbstractRepository<Contact, Integer>{
     private static int ID_SEQUENCE = 0;
     private static CsvContactRepository SINGLETON;
 
