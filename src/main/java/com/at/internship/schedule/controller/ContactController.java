@@ -26,7 +26,10 @@ public class ContactController {
 
     @GetMapping("/all")
     public List<ContactDto> findAll() {
-        return contactService.findAll().stream().map(contactConverter::toContactDto).collect(Collectors.toList());
+        return contactService.findAll()
+            .stream()
+            .map(contactConverter::toContactDto)
+            .collect(Collectors.toList());
     }
 
     @PostMapping("/new")

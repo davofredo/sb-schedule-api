@@ -3,16 +3,28 @@ package com.at.internship.schedule.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Data
 @NoArgsConstructor
+@Entity
 public class Appointment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(nullable = false)
     private Integer contactId;
+
+    @Column(nullable = false)
     private LocalDateTime time;
+
+    @Column(nullable = false)
     private String subject;
+
+    @Transient
     private Contact contact;
 
     public Appointment(Appointment source) {

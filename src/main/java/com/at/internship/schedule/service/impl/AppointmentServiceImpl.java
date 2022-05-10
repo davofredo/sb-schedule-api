@@ -1,6 +1,7 @@
 package com.at.internship.schedule.service.impl;
 
 import com.at.internship.schedule.domain.Appointment;
+import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.repository.IAppointmentRepository;
 import com.at.internship.schedule.service.IAppointmentService;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
     private final IAppointmentRepository appointmentRepository;
 
     public AppointmentServiceImpl(
-            IAppointmentRepository appointmentRepository
+        IAppointmentRepository appointmentRepository
     ) {
         this.appointmentRepository = appointmentRepository;
     }
@@ -23,4 +24,10 @@ public class AppointmentServiceImpl implements IAppointmentService {
         return appointmentRepository.findAll();
     }
 
+    @Override
+    public Appointment create(Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
+
 }
+
