@@ -1,18 +1,30 @@
 package com.at.internship.schedule.domain;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@Entity
 public class Appointment {
+    private static final String SEQUENCE_NAME = "APPOINTMENT_SEQUENCE";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
+    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME)
     private Integer id;
     private Integer contactId;
+    @Column(name = "apmt_time")
     private LocalDateTime time;
+    @Column(name = "apmt_subject")
     private String subject;
+    @Transient
     private Contact contact;
 
     public Appointment(Appointment source) {
