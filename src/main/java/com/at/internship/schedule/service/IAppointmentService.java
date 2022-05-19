@@ -1,9 +1,11 @@
 package com.at.internship.schedule.service;
 
 import com.at.internship.schedule.domain.Appointment;
+import com.at.internship.schedule.dto.AppointmentFiltersDto;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
+import org.springframework.data.domain.Pageable;
 
 public interface IAppointmentService {
-    List<Appointment> findAll();
+    Page<Appointment> findAll(AppointmentFiltersDto filters, Pageable pageable);
 }

@@ -19,12 +19,14 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME)
     private Integer id;
+    @Column(name = "contact_id")
     private Integer contactId;
     @Column(name = "apmt_time")
     private LocalDateTime time;
     @Column(name = "apmt_subject")
     private String subject;
-    @Transient
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "contact_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Contact contact;
 
     public Appointment(Appointment source) {
