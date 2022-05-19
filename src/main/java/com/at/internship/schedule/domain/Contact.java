@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.*;
+
 @Data
 public class Contact {
     private Integer id;
@@ -15,6 +17,7 @@ public class Contact {
     private String emailAddress;
     private LocalDate birthDay;
     // Lazy load contactPhones
+    @OneToMany
     private List<ContactPhone> contactPhones;
     // Lazy load appointments
     private List<Appointment> appointments;
