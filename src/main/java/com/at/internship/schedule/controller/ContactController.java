@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/contact")
 @SuppressWarnings("unused")
 public class ContactController {
+
     public ContactController () {
 
     }
@@ -13,5 +14,15 @@ public class ContactController {
     @GetMapping("/update")
     public String update() {
         return "Hola mundo";
+    }
+
+    @PostMapping("/create")
+    public String create() {
+        return "Creado";
+    }
+
+    @DeleteMapping("/delete")
+    public String delete() {
+        return "Eliminando";
     }
 }

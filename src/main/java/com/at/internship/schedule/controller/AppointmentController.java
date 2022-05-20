@@ -1,8 +1,17 @@
 package com.at.internship.schedule.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.at.internship.schedule.converter.AppointmentConverter;
+import com.at.internship.schedule.domain.Appointment;
 import com.at.internship.schedule.dto.AppointmentDto;
+import com.at.internship.schedule.dto.AppointmentFiltersDto;
+import com.at.internship.schedule.service.IAppointmentService;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

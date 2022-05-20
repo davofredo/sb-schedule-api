@@ -1,8 +1,23 @@
 package com.at.internship.schedule.service.impl;
 
+import java.time.LocalDateTime;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import com.at.internship.lib.specification.EqualSpec;
+import com.at.internship.lib.specification.GreaterSpec;
+import com.at.internship.lib.specification.LikeIgnoreCaseSpec;
 import com.at.internship.schedule.domain.Appointment;
+import com.at.internship.schedule.dto.AppointmentFiltersDto;
+import com.at.internship.schedule.repository.IAppointmentRepository;
+import com.at.internship.schedule.service.IAppointmentService;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
