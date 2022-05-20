@@ -21,8 +21,9 @@ public class ContactConverter {
         contactDto.setFirstName(contact.getFirstName());
         contactDto.setLastName(contact.getLastName());
         contactDto.setEmailAddress(contact.getEmailAddress());
-        contactDto.setPhoneNumber(contact.getPhoneNumber());
         contactDto.setBirthDay(dateUtils.formatDefault(contact.getBirthDay()));
+        contactDto.setContactPhones(contact.getContactPhones());
+        contactDto.setAppointments(contact.getAppointments());
         return contactDto;
     }
 
@@ -32,8 +33,9 @@ public class ContactConverter {
         contact.setFirstName(contactDto.getFirstName());
         contact.setLastName(contactDto.getLastName());
         contact.setEmailAddress(contactDto.getEmailAddress());
-        contact.setPhoneNumber(contactDto.getPhoneNumber());
         contact.setBirthDay(dateUtils.parseDefaultDate(contactDto.getBirthDay()));
+        contact.setContactPhones(contactDto.getContactPhones());
+        contact.setAppointments(contactDto.getAppointments());
         return contact;
     }
 

@@ -1,6 +1,10 @@
 package com.at.internship.schedule.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.at.internship.schedule.domain.Appointment;
+import com.at.internship.schedule.domain.ContactPhone;
 
 import lombok.Data;
 
@@ -10,5 +14,7 @@ public class ContactDto {
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private LocalDate birthDay;
+    private String birthDay;
+    private List<ContactPhone> contactPhones;
+    private List<Appointment> appointments;
 }

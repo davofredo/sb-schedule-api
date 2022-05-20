@@ -8,6 +8,7 @@ import lombok.Data;
 public class AppointmentDto {
     private Integer id;
     private Integer contactId;
-    private LocalDateTime time;
+    private String time;
     private String subject;
+    private String contact;
 }
