@@ -1,5 +1,6 @@
 package com.at.internship.schedule.controller;
 
+import com.at.internship.schedule.constants.AppConstants;
 import com.at.internship.schedule.converter.ModelMapperConverter;
 import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.dto.ContactCreateDto;
@@ -34,7 +35,7 @@ public class ContactController {
         Page<Contact> page = contactService.findAll(pageable);
         List<ContactItemDto> contacts = modelMapperConverter.convertListTo(page.getContent(), ContactItemDto.class);
         return new PageResponse<>(
-                LocalDateTime.now(), "OK", "MESSAGE", contacts,
+                LocalDateTime.now(), AppConstants.STR_CODE_OK, AppConstants.STR_MESSAGE_SUCCESS, contacts,
                 page.getNumber(),page.getSize(),page.getTotalPages(),
                 page.getTotalElements(),page.getNumberOfElements(),
                 page.isFirst(),page.isLast(),page.isEmpty());
@@ -43,14 +44,14 @@ public class ContactController {
     @GetMapping("/get/{id}")
     public GenericResponse<ContactDetailsDto> findOne(@PathVariable Integer id){
         return new GenericResponse<>(
-                LocalDateTime.now(), "OK", "MESSAGE",
+                LocalDateTime.now(), AppConstants.STR_CODE_OK, AppConstants.STR_MESSAGE_SUCCESS,
                 modelMapperConverter.convertTo(contactService.findOne(id), ContactDetailsDto.class));
     }
 
     @PostMapping("/new")
     public GenericResponse<ContactDetailsDto> save(@RequestBody @Valid ContactCreateDto contact) {
         return new GenericResponse<>(
-                LocalDateTime.now(), "OK", "MESSAGE",
+                LocalDateTime.now(), AppConstants.STR_CODE_OK, AppConstants.STR_MESSAGE_SUCCESS,
                 modelMapperConverter.convertTo(
                         contactService.save(modelMapperConverter.convertTo(contact, Contact.class)),
                         ContactDetailsDto.class));
@@ -59,7 +60,7 @@ public class ContactController {
     @PutMapping("/update")
     public GenericResponse<ContactDetailsDto> update(@RequestBody @Valid ContactUpdateDto contact) {
         return new GenericResponse<>(
-                LocalDateTime.now(), "OK", "MESSAGE",
+                LocalDateTime.now(), AppConstants.STR_CODE_OK, AppConstants.STR_MESSAGE_SUCCESS,
                 modelMapperConverter.convertTo(
                         contactService.save(modelMapperConverter.convertTo(contact, Contact.class)),
                         ContactDetailsDto.class));
@@ -68,7 +69,7 @@ public class ContactController {
     @DeleteMapping("/delete/{id}")
     public GenericResponse<ContactDetailsDto> delete(@PathVariable Integer id){
         return new GenericResponse<>(
-                LocalDateTime.now(), "OK", "MESSAGE",
+                LocalDateTime.now(), AppConstants.STR_CODE_OK, AppConstants.STR_MESSAGE_SUCCESS,
                 modelMapperConverter.convertTo(contactService.delete(id), ContactDetailsDto.class));
     }
 
