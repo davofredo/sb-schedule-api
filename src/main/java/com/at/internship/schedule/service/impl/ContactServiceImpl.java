@@ -1,14 +1,18 @@
 package com.at.internship.schedule.service.impl;
 
 import com.at.internship.schedule.domain.Contact;
+import com.at.internship.schedule.dto.ContactFilterDto;
 import com.at.internship.schedule.exception.NotFoundRecordException;
 import com.at.internship.schedule.exception.NotNullIdException;
 import com.at.internship.schedule.exception.NotValidContactException;
+import com.at.internship.schedule.lib.specification.EqualSpec;
+import com.at.internship.schedule.lib.specification.LikeIgnoreCaseSpec;
 import com.at.internship.schedule.repository.IContactRepository;
 import com.at.internship.schedule.service.IContactService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.awt.print.Pageable;
 import java.util.Optional;
 
 @Service
@@ -20,8 +24,23 @@ public class ContactServiceImpl implements IContactService {
     }
 
     @Override
-    public List<Contact> findAll() {
-        return contactRepository.findAll();
+    public Page<Contact> findAll(ContactFilterDto filters, Pageable pageable) {
+        //return contactRepository.findAll();
+        String firstNameLike =
+            filters.getFirstNameLike() == null ? null : String.format("%%%s%%", filters.getFirstNameLike());
+        String lastNameLike =
+            filters.getLastNameLike() == null ? null : String.format("%%%s%%", filters.getLastNameLike());
+        String emailAddressLike =
+            filters.getEmailAddressLike() == null ? null : String.format("%%%s%%", filters.getEmailAddressLike());
+
+        // Define Specifications
+        Specification<Contact> specs = Specification
+            .where(new EqualSpec<Contact>("id", filters.getId()))
+            .and(new LikeIgnoreCaseSpec<>("firstName", firstNameLike))
+            .and(new LikeIgnoreCaseSpec<>("lastName", lastNameLike))
+            .and(new LikeIgnoreCaseSpec<>("emailAddress", emailAddressLike));
+
+        return contactRepository.findAll(specs, pageable);
     }
 
     @Override

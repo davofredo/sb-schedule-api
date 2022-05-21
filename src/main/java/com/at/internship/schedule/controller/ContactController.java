@@ -3,13 +3,16 @@ package com.at.internship.schedule.controller;
 import com.at.internship.schedule.converter.ContactConverter;
 import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.dto.ContactDto;
+import com.at.internship.schedule.dto.ContactFilterDto;
 import com.at.internship.schedule.exception.custom.CustomResponseEntity;
 import com.at.internship.schedule.service.impl.ContactServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
+import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,10 +30,17 @@ public class ContactController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<List<ContactDto>> find() {
-        List<ContactDto> contactDtoList =
-            contactService.findAll().stream().map(contactConverter::toContactDto).collect(Collectors.toList());
-        return ResponseEntity.ok(contactDtoList);
+    public Page<ContactDto> findAll(ContactFilterDto filters, Pageable pageable) {
+        Page<Contact> page = contactService.findAll(filters, pageable);
+
+        List<ContactDto> content = page.stream().map(contactConverter::toContactDto)
+            .collect(Collectors.toList());
+
+        return new PageImpl<>(content, page.getPageable(), page.getTotalElements());
+
+ //        List<ContactDto> contactDtoList =
+//            contactService.findAll().stream().map(contactConverter::toContactDto).collect(Collectors.toList());
+//        return ResponseEntity.ok(contactDtoList);
     }
 
     @PostMapping(value = "/new")
