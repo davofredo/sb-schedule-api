@@ -19,9 +19,9 @@ public class Appointment {
     private Integer id;
     @Column(name = "contact_id", length = 11)
     private Integer contactId;
-    @Column(name = "local_date_time")
+    @Column(name = "local_date_time", nullable = false)
     private LocalDateTime time;
-    @Column(name = "subject", length = 500)
+    @Column(name = "subject", nullable = false, length = 500)
     private String subject;
     // Lazy load contacts
     @ManyToOne(fetch = FetchType.LAZY)

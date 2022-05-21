@@ -15,6 +15,6 @@ public class ContactDto {
     private String lastName;
     private String emailAddress;
     private String birthDay;
-    private List<ContactPhone> contactPhones;
-    private List<Appointment> appointments;
+    private String contactPhones;
+    private String appointments;
 }

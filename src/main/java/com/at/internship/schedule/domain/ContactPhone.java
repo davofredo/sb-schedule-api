@@ -12,9 +12,9 @@ public class ContactPhone {
     private Long id;
     @Column(name = "contact_id", length = 11)
     private Integer contactId;
-    @Column(name = "phone_number", length = 50)
+    @Column(name = "phone_number", nullable = false, length = 50)
     private String phoneNumber;
-    @Column(name = "label", length = 100)
+    @Column(name = "label", nullable = false, length = 100)
     private String label;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contact_id", referencedColumnName = "id", insertable = false, updatable = false)

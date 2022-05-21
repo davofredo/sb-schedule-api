@@ -18,22 +18,22 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
     @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME)
     private Integer id;
-    @Column(name = "first_name", length = 50)
+    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
-    @Column(name = "last_name", length = 50)
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-    @Column(name = "email", length = 100)
+    @Column(name = "email", nullable = false, length = 100)
     private String emailAddress;
-    @Column(name = "birth_day")
+    @Column(name = "birth_day", nullable = false)
     private LocalDate birthDay;
     // Lazy load contactPhones
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "phone_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private List<ContactPhone> contactPhones;
-    // Lazy load appointments
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "appointment_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private List<Appointment> appointments;
+    //@JoinColumn(name = "phone_id", referencedColumnName = "id", insertable = false, updatable = false)
+    //private List<ContactPhone> contactPhones;
+    //// Lazy load appointments
+    //@OneToMany(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "appointment_id", referencedColumnName = "id", insertable = false, updatable = false)
+    //private List<Appointment> appointments;
 
     @Override
     public boolean equals(Object o) {
