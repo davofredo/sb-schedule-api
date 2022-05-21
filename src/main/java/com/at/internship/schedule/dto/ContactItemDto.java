@@ -3,14 +3,12 @@ package com.at.internship.schedule.dto;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
-public class ContactDetailsDto {
+public class ContactItemDto {
     private Long id;
     private String firstName;
     private String lastName;
     private String emailAddress;
     private LocalDate birthDay;
-    private List<ContactPhoneDto> contactPhones;
 }

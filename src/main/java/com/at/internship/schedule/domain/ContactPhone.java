@@ -15,5 +15,5 @@ public class ContactPhone implements Serializable {
     private String phoneNumber;
     private String label;
     @ManyToOne
-    private Contact contactId;
+    private Contact contact;
 }

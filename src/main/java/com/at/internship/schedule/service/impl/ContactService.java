@@ -3,6 +3,8 @@ package com.at.internship.schedule.service.impl;
 import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.repository.ContactRepository;
 import com.at.internship.schedule.service.IContactService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class ContactService implements IContactService {
     }
 
     @Override
-    public List<Contact> findAll() {
-        return contactRepository.findAll();
+    public Page<Contact> findAll(Pageable pageable) {
+        return contactRepository.findAll(pageable);
     }
 
     @Override
