@@ -8,15 +8,14 @@ import com.at.internship.schedule.exception.NotValidContactException;
 import com.at.internship.schedule.lib.specification.EqualSpec;
 import com.at.internship.schedule.lib.specification.GreaterSpec;
 import com.at.internship.schedule.lib.specification.LikeIgnoreCaseSpec;
+import com.at.internship.schedule.lib.specification.LowerSpec;
 import com.at.internship.schedule.repository.IContactRepository;
 import com.at.internship.schedule.service.IContactService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Optional;
 
@@ -43,13 +42,17 @@ public class ContactServiceImpl implements IContactService {
         LocalDate timeGreaterThan = filters.getTimeGreaterThan() == null ? null :
             LocalDate.ofInstant(filters.getTimeGreaterThan().toInstant(), ZoneId.systemDefault());
 
+        LocalDate timeLowerThan = filters.getTimeLowerThan()== null ? null :
+            LocalDate.ofInstant(filters.getTimeLowerThan().toInstant(), ZoneId.systemDefault());
+
         // Define Specifications
         Specification<Contact> specs = Specification
             .where(new EqualSpec<Contact>("id", filters.getId()))
             .and(new LikeIgnoreCaseSpec<>("firstName", firstNameLike))
             .and(new LikeIgnoreCaseSpec<>("lastName", lastNameLike))
             .and(new LikeIgnoreCaseSpec<>("emailAddress", emailAddressLike))
-            .and(new GreaterSpec<>("birthDay", timeGreaterThan));
+            .and(new GreaterSpec<>("birthDay", timeGreaterThan))
+            .and(new LowerSpec<>("birthDay",timeLowerThan));
 
         return contactRepository.findAll(specs, pageable);
     }
