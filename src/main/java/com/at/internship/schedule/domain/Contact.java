@@ -1,13 +1,12 @@
 package com.at.internship.schedule.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Data
 @Entity
@@ -18,13 +17,15 @@ public class Contact implements Serializable {
     private Integer id;
     private String firstName;
     private String lastName;
+    @Column(name = "email")
     private String emailAddress;
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate birthDay;
 
-    @OneToMany
+    @OneToMany(mappedBy = "contact", cascade = {CascadeType.ALL})
     private List<Appointment> appointments;
 
-    @OneToMany
+    @OneToMany(mappedBy = "contact", cascade = {CascadeType.ALL})
     private List<ContactPhone> contactPhones;
 
 

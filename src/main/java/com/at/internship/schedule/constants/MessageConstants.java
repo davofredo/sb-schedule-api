@@ -1,6 +1,6 @@
 package com.at.internship.schedule.constants;
 
-public class AppConstants {
+public class MessageConstants {
     public final static String STR_CODE_OK = "OK";
     public final static String STR_MESSAGE_SUCCESS = "Success!";
     public final static String STR_CODE_VALIDATION_FAILED = "VALIDATION_FAILED";
