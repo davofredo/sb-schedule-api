@@ -11,6 +11,6 @@ public class ContactDetailsDto {
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private LocalDate birthDay;
+    private String birthDay;
     private List<ContactPhoneDto> contactPhones;
 }

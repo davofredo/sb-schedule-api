@@ -21,6 +21,10 @@ public interface ContactMapper {
     ContactDetailsDto convertToContactDetailsDto(Contact contact);
     List<ContactItemDto> convertToContactsItemDto(List<Contact> contacts);
 
-     Contact convertToContact(ContactCreateDto contact);
-     Contact convertToContact(ContactUpdateDto contact);
+    @Mappings(value = {
+            @Mapping(source = "contactDto.birthDay", target = "birthDay",
+                    dateFormat = "MM/dd/yyyy")
+    })
+     Contact convertToContact(ContactCreateDto contactDto);
+     Contact convertToContact(ContactUpdateDto contactDto);
 }

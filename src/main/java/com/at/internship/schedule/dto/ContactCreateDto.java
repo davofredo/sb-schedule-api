@@ -18,5 +18,5 @@ public class ContactCreateDto {
     private String lastName;
     @Email(message = "Invalid email address")
     private String emailAddress;
-    private LocalDate birthDay;
+    private String birthDay;
 }

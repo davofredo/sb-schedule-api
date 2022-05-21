@@ -1,7 +1,6 @@
 package com.at.internship.schedule.controller;
 
 import com.at.internship.schedule.constants.MessageConstants;
-import com.at.internship.schedule.converter.ModelMapperConverter;
 import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.dto.ContactCreateDto;
 import com.at.internship.schedule.dto.ContactDetailsDto;
