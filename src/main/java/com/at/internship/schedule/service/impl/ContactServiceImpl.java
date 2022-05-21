@@ -6,13 +6,18 @@ import com.at.internship.schedule.exception.NotFoundRecordException;
 import com.at.internship.schedule.exception.NotNullIdException;
 import com.at.internship.schedule.exception.NotValidContactException;
 import com.at.internship.schedule.lib.specification.EqualSpec;
+import com.at.internship.schedule.lib.specification.GreaterSpec;
 import com.at.internship.schedule.lib.specification.LikeIgnoreCaseSpec;
 import com.at.internship.schedule.repository.IContactRepository;
 import com.at.internship.schedule.service.IContactService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Optional;
 
 @Service
@@ -24,7 +29,9 @@ public class ContactServiceImpl implements IContactService {
     }
 
     @Override
-    public Page<Contact> findAll(ContactFilterDto filters, Pageable pageable) {
+    public Page<Contact> findAll(
+        ContactFilterDto filters, Pageable pageable
+         ) {
         //return contactRepository.findAll();
         String firstNameLike =
             filters.getFirstNameLike() == null ? null : String.format("%%%s%%", filters.getFirstNameLike());
@@ -33,15 +40,20 @@ public class ContactServiceImpl implements IContactService {
         String emailAddressLike =
             filters.getEmailAddressLike() == null ? null : String.format("%%%s%%", filters.getEmailAddressLike());
 
+        LocalDate timeGreaterThan = filters.getTimeGreaterThan() == null ? null :
+            LocalDate.ofInstant(filters.getTimeGreaterThan().toInstant(), ZoneId.systemDefault());
+
         // Define Specifications
         Specification<Contact> specs = Specification
             .where(new EqualSpec<Contact>("id", filters.getId()))
             .and(new LikeIgnoreCaseSpec<>("firstName", firstNameLike))
             .and(new LikeIgnoreCaseSpec<>("lastName", lastNameLike))
-            .and(new LikeIgnoreCaseSpec<>("emailAddress", emailAddressLike));
+            .and(new LikeIgnoreCaseSpec<>("emailAddress", emailAddressLike))
+            .and(new GreaterSpec<>("birthDay", timeGreaterThan));
 
         return contactRepository.findAll(specs, pageable);
     }
+
 
     @Override
     public Contact create(Contact contact) {

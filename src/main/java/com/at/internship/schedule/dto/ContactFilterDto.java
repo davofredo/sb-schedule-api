@@ -10,6 +10,6 @@ public class ContactFilterDto {
     private String firstNameLike;
     private String lastNameLike;
     private String emailAddressLike;
-    @JsonFormat(pattern = "MM/dd/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "MM/dd/yyyy")
     private Date timeGreaterThan;
 }

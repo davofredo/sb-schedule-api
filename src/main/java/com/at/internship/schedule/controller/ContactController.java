@@ -12,10 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.awt.print.Pageable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/contact")
@@ -30,15 +30,19 @@ public class ContactController {
     }
 
     @GetMapping("/find")
-    public Page<ContactDto> findAll(ContactFilterDto filters, Pageable pageable) {
+    public Page<ContactDto> findAll(
+        ContactFilterDto filters, Pageable pageable
+    ) {
         Page<Contact> page = contactService.findAll(filters, pageable);
 
-        List<ContactDto> content = page.stream().map(contactConverter::toContactDto)
+        List<ContactDto> content = page
+            .stream()
+            .map(contactConverter::toContactDto)
             .collect(Collectors.toList());
 
         return new PageImpl<>(content, page.getPageable(), page.getTotalElements());
 
- //        List<ContactDto> contactDtoList =
+//         List<ContactDto> contactDtoList =
 //            contactService.findAll().stream().map(contactConverter::toContactDto).collect(Collectors.toList());
 //        return ResponseEntity.ok(contactDtoList);
     }
