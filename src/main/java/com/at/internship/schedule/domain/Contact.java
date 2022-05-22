@@ -2,6 +2,8 @@ package com.at.internship.schedule.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -25,6 +27,9 @@ public class Contact {
     @Size(min = 2, max = 50, message = "Last name should be at least {min} characters length and {max} maximum")
     @Column(name = "last_name")
     private String lastName;
+
+    @Formula("CONCAT(first_name, ' ', last_name)")
+    private String fullName;
 
     @Email(message = "Please provide a valid email address")
     @NotNull(message = "Email cannot be null")

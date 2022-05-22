@@ -1,9 +1,6 @@
 package com.at.internship.schedule.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.ToString;
-import org.springframework.data.jpa.repository.EntityGraph;
 
 import javax.persistence.*;
 

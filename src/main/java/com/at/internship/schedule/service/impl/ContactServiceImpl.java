@@ -59,9 +59,8 @@ public class ContactServiceImpl implements IContactService {
             .and(new LikeIgnoreCaseSpec<>("emailAddress", emailAddressLike))
             .and(new GreaterSpec<>("birthDay", timeGreaterThan))
             .and(new LowerSpec<>("birthDay",timeLowerThan))
-            .and(new EqualSpec<>("birthDay",timeEqualLike));
-
-        //contactRepository.findAll().stream().forEach(ele -> System.out.println(ele.getContactPhones()));
+            .and(new EqualSpec<>("birthDay",timeEqualLike))
+            .and(new LikeIgnoreCaseSpec<>("fullName", fullNameLike));
 
         return contactRepository.findAll(specs, pageable);
     }
@@ -123,7 +122,9 @@ public class ContactServiceImpl implements IContactService {
             contactRepository.deleteById(contact.getId());
             return contact;
         }else{
-            throw new NotFoundRecordException("Requested Contact with ID " + id + " was not Found");
+            throw new NotFoundRecordException(
+                String.format("Requested Contact with ID: %s  was not Found", id)
+            );
         }
     }
 
