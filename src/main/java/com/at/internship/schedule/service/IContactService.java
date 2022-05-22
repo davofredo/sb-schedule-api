@@ -14,4 +14,5 @@ public interface IContactService {
     Contact update(Contact contact);
     Optional<Contact> findById(Integer id);
     Contact deleteContact(Integer id);
+    Contact getContact(Integer id);
 }

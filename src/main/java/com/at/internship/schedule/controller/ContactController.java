@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Pageable;
 
@@ -77,6 +78,17 @@ public class ContactController {
         CustomResponseEntity cre = new CustomResponseEntity(
             LocalDateTime.now(), HttpStatus.OK,
             "Success!", contactDetailDto
+        );
+        return new ResponseEntity<>(cre, HttpStatus.OK);
+    }
+
+    @GetMapping("/get/{contactId}")
+    private ResponseEntity<?> getContact(@PathVariable Integer contactId) {
+        Contact contact = contactService.getContact(contactId);
+        ContactDto contactDto = contactConverter.toContactDto(contact);
+        CustomResponseEntity cre = new CustomResponseEntity(
+            LocalDateTime.now(), HttpStatus.OK,
+            "Success!", contactDto
         );
         return new ResponseEntity<>(cre, HttpStatus.OK);
     }

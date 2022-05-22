@@ -51,7 +51,6 @@ public class ContactServiceImpl implements IContactService {
         String fullNameLike =
             filters.getFullNameLike() == null ? null : String.format("%%%s%%", filters.getFullNameLike());
 
-        //Define Specifications
         Specification<Contact> specs = Specification
             .where(new EqualSpec<Contact>("id", filters.getId()))
             .and(new LikeIgnoreCaseSpec<>("firstName", firstNameLike))
@@ -120,6 +119,24 @@ public class ContactServiceImpl implements IContactService {
         if (optionalContact.isPresent()){
             Contact contact = (Contact) optionalContact.get();
             contactRepository.deleteById(contact.getId());
+            return contact;
+        }else{
+            throw new NotFoundRecordException(
+                String.format("Requested Contact with ID: %s  was not Found", id)
+            );
+        }
+    }
+
+    @Override
+    public Contact getContact(Integer id) {
+        Optional<Contact> optionalContact = contactRepository.findById(id);
+        if (optionalContact.isPresent()) {
+            Contact contact = new Contact();
+            contact.setId(optionalContact.get().getId());
+            contact.setFirstName(optionalContact.get().getFirstName());
+            contact.setLastName(optionalContact.get().getLastName());
+            contact.setEmailAddress(optionalContact.get().getEmailAddress());
+            contact.setContactPhones(optionalContact.get().getContactPhones());
             return contact;
         }else{
             throw new NotFoundRecordException(
