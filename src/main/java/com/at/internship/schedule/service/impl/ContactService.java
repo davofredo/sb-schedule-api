@@ -3,11 +3,12 @@ package com.at.internship.schedule.service.impl;
 import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.repository.ContactRepository;
 import com.at.internship.schedule.service.IContactService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class ContactService implements IContactService {
@@ -25,11 +26,14 @@ public class ContactService implements IContactService {
 
     @Override
     public Contact findOne(Integer id) {
-        return contactRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return contactRepository.findById(id)
+                .orElseThrow(() -> {throw new EntityNotFoundException(String.format("Requested Contact with ID %s was not found", id));});
     }
 
     @Override
     public Contact save(Contact contact) {
+        if(contactRepository.existsByEmailAddress(contact.getEmailAddress()))
+            throw new DataIntegrityViolationException(String.format("The email %s is already taken by another contact", contact.getEmailAddress()));
         return contactRepository.save(contact);
     }
 

@@ -1,22 +1,24 @@
 package com.at.internship.schedule.dto;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDate;
 
 @Data
 public class ContactCreateDto {
 
     @NotNull(message = "First name is required")
-    @Pattern(regexp = "[a-zA-ZÁÉÍÑÓÚÜáéíñóúü]+")
+    @Length(min = 2, max = 255, message = "First name should be at least 2 characters length and 255 maximum")
+    @Pattern(regexp = "[a-zA-ZÁÉÍÑÓÚÜáéíñóúü\\s]+", message = "First name should have only letters")
     private String firstName;
     @NotNull(message = "Last name is required")
-    @Pattern(regexp = "[a-zA-ZÁÉÍÑÓÚÜáéíñóúü]+")
+    @Length(min = 2, max = 255, message = "Last name should be at least 2 characters length and 255 maximum")
+    @Pattern(regexp = "[a-zA-ZÁÉÍÑÓÚÜáéíñóúü\\s]+", message = "First name should have only letters")
     private String lastName;
-    @Email(message = "Invalid email address")
+    @Email(message = "Please provide a valid email address")
     private String emailAddress;
     private String birthDay;
 }

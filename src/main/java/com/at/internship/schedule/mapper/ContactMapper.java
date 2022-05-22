@@ -26,5 +26,10 @@ public interface ContactMapper {
                     dateFormat = "MM/dd/yyyy")
     })
      Contact convertToContact(ContactCreateDto contactDto);
+
+    @Mappings(value = {
+            @Mapping(source = "contactDto.birthDay", target = "birthDay",
+                    dateFormat = "MM/dd/yyyy")
+    })
      Contact convertToContact(ContactUpdateDto contactDto);
 }

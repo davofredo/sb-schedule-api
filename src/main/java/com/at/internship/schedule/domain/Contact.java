@@ -1,7 +1,6 @@
 package com.at.internship.schedule.domain;
 
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,9 +16,8 @@ public class Contact implements Serializable {
     private Integer id;
     private String firstName;
     private String lastName;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String emailAddress;
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
     private LocalDate birthDay;
 
     @OneToMany(mappedBy = "contact", cascade = {CascadeType.ALL})
