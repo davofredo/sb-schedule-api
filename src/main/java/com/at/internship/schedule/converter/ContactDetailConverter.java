@@ -1,20 +1,20 @@
 package com.at.internship.schedule.converter;
 
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.dto.ContactCreatedDto;
+import com.at.internship.schedule.dto.ContactDetailDto;
 import com.at.internship.schedule.utils.DateUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ContactCreatedConverter {
+public class ContactDetailConverter {
     private final DateUtils dateUtils;
 
-    public ContactCreatedConverter(DateUtils dateUtils) {
+    public ContactDetailConverter(DateUtils dateUtils) {
         this.dateUtils = dateUtils;
     }
 
-    public ContactCreatedDto toContactCreatedDto(Contact contact) {
-        ContactCreatedDto contactCreatedDto = new ContactCreatedDto();
+    public ContactDetailDto toContactCreatedDto(Contact contact) {
+        ContactDetailDto contactCreatedDto = new ContactDetailDto();
         contactCreatedDto.setId(contact.getId());
         contactCreatedDto.setFirstName(contact.getFirstName());
         contactCreatedDto.setLastName(contact.getLastName());

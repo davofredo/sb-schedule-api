@@ -1,9 +1,9 @@
 package com.at.internship.schedule.controller;
 
 import com.at.internship.schedule.converter.ContactConverter;
-import com.at.internship.schedule.converter.ContactCreatedConverter;
+import com.at.internship.schedule.converter.ContactDetailConverter;
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.dto.ContactCreatedDto;
+import com.at.internship.schedule.dto.ContactDetailDto;
 import com.at.internship.schedule.dto.ContactDto;
 import com.at.internship.schedule.dto.ContactFilterDto;
 import com.at.internship.schedule.exception.custom.CustomResponseEntity;
@@ -25,9 +25,9 @@ public class ContactController {
 
     private final ContactServiceImpl contactService;
     private final ContactConverter contactConverter;
-    private final ContactCreatedConverter contactCreatedConverter;
+    private final ContactDetailConverter contactCreatedConverter;
 
-    public ContactController(ContactServiceImpl contactService, ContactConverter contactConverter, ContactCreatedConverter contactCreatedConverter) {
+    public ContactController(ContactServiceImpl contactService, ContactConverter contactConverter, ContactDetailConverter contactCreatedConverter) {
         this.contactService = contactService;
         this.contactConverter = contactConverter;
         this.contactCreatedConverter = contactCreatedConverter;
@@ -51,10 +51,10 @@ public class ContactController {
     @PostMapping(value = "/new")
     public ResponseEntity<?> newContact(@Valid @RequestBody Contact newContact) {
         Contact contact = contactService.create(newContact);
-        ContactCreatedDto contactCreatedDto = contactCreatedConverter.toContactCreatedDto(contact);
+        ContactDetailDto contactDetailDto = contactCreatedConverter.toContactCreatedDto(contact);
         CustomResponseEntity cre = new CustomResponseEntity(
             LocalDateTime.now(), HttpStatus.OK,
-            "Success!", contactCreatedDto
+            "Success!", contactDetailDto
         );
         return new ResponseEntity<>(cre, HttpStatus.OK);
     }
@@ -73,10 +73,10 @@ public class ContactController {
     @DeleteMapping(path = "/delete")
     private ResponseEntity<?> deleteContact(@RequestParam Integer id) {
         Contact deletedContact = contactService.deleteContact(id);
-        ContactDto contactDto =contactConverter.toContactDto(deletedContact);
+        ContactDetailDto contactDetailDto = contactCreatedConverter.toContactCreatedDto(deletedContact);
         CustomResponseEntity cre = new CustomResponseEntity(
             LocalDateTime.now(), HttpStatus.OK,
-            "Success!", contactDto
+            "Success!", contactDetailDto
         );
         return new ResponseEntity<>(cre, HttpStatus.OK);
     }
