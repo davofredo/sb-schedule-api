@@ -1,8 +1,10 @@
 package com.at.internship.schedule.service.impl;
 
 import com.at.internship.schedule.domain.Contact;
+import com.at.internship.schedule.dto.ContactFiltersDto;
 import com.at.internship.schedule.repository.ContactRepository;
 import com.at.internship.schedule.service.IContactService;
+import com.at.internship.schedule.util.helper.ContactSpecificationsHelper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +22,8 @@ public class ContactService implements IContactService {
     }
 
     @Override
-    public Page<Contact> findAll(Pageable pageable) {
-        return contactRepository.findAll(pageable);
+    public Page<Contact> findAll(ContactFiltersDto filters, Pageable pageable) {
+        return contactRepository.findAll(ContactSpecificationsHelper.getContactSpecs(filters),pageable);
     }
 
     @Override

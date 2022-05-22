@@ -2,10 +2,7 @@ package com.at.internship.schedule.controller;
 
 import com.at.internship.schedule.constants.MessageConstants;
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.dto.ContactCreateDto;
-import com.at.internship.schedule.dto.ContactDetailsDto;
-import com.at.internship.schedule.dto.ContactItemDto;
-import com.at.internship.schedule.dto.ContactUpdateDto;
+import com.at.internship.schedule.dto.*;
 import com.at.internship.schedule.mapper.ContactMapper;
 import com.at.internship.schedule.response.GenericResponse;
 import com.at.internship.schedule.response.PageResponse;
@@ -33,8 +30,8 @@ public class ContactController {
     }
 
     @GetMapping("/find")
-    public PageResponse<ContactItemDto> findAll(Pageable pageable) {
-        Page<Contact> page = contactService.findAll(pageable);
+    public PageResponse<ContactItemDto> findAll(ContactFiltersDto filters, Pageable pageable) {
+        Page<Contact> page = contactService.findAll(filters,pageable);
         List<ContactItemDto> contacts = contactMapper.convertToContactsItemDto(page.getContent());
         return new PageResponse<>(
                 LocalDateTime.now(), MessageConstants.STR_CODE_OK, MessageConstants.STR_MESSAGE_SUCCESS, contacts,
