@@ -47,13 +47,13 @@ public class ContactServiceImpl implements IContactService {
     }
 
     @Override
-    public List<Contact> findByNombreOrderByNombreAsc(String nombre) {
-        return contactRepository.findByNombreOrderByNombreAsc(nombre);
+    public List<Contact> findByFirstNameOrderByFirstNameAsc(String firstName) {
+        return contactRepository.findByFirstNameOrderByFirstNameAsc(firstName);
     }
 
     @Override
-    public List<Contact> findByNombreNotLike(String nombre) {
-        return contactRepository.findByNombreNotLike(nombre);
+    public List<Contact> findByFirstNameNotLike(String firstName) {
+        return contactRepository.findByFirstNameNotLike(firstName);
     }
     
 }

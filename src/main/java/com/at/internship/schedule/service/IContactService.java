@@ -21,7 +21,6 @@ public interface IContactService {
 
     void delete(Integer id);
 
-    List<Contact> findByNombreOrderByNombreAsc(String nombre);
-
-    List<Contact> findByNombreNotLike(String nombre);
+    List<Contact> findByFirstNameOrderByFirstNameAsc(String firstName);
+    List<Contact> findByFirstNameNotLike(String nombre);
 }

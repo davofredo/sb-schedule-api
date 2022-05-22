@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IContactRepository extends JpaRepository<Contact, Integer>, JpaSpecificationExecutor<Contact> {
-    List<Contact> findByNombreOrderByNombreAsc(String nombre);
-    List<Contact> findByNombreNotLike(String nombre);
+    List<Contact> findByFirstNameOrderByFirstNameAsc(String nombre);
+    List<Contact> findByFirstNameNotLike(String nombre);
 }

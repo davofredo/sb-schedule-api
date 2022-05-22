@@ -31,8 +31,8 @@ public class ContactController {
     }
 
     @GetMapping("/findByNombreOrderByNombreAsc/{nombre}")
-    public List<Contact> findByNombreOrderByNombreAsc(@PathVariable("nombre") String nombre) {
-        return contactService.findByNombreOrderByNombreAsc(nombre);
+    public List<Contact> findByFirstNameOrderByFirstNameAsc(@PathVariable("nombre") String nombre) {
+        return contactService.findByFirstNameOrderByFirstNameAsc(nombre);
     }
 
     @PostMapping("/save")
@@ -48,7 +48,7 @@ public class ContactController {
             contactService.save(contact);
     }
 
-    @DeleteMapping("/delete/{id]")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable("id") Integer id) {
         contactService.delete(id);
     }
