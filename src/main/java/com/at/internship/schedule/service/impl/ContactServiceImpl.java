@@ -2,6 +2,7 @@ package com.at.internship.schedule.service.impl;
 
 import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.dto.ContactFilterDto;
+import com.at.internship.schedule.exception.EmailTakenException;
 import com.at.internship.schedule.exception.NotFoundRecordException;
 import com.at.internship.schedule.exception.NotNullIdException;
 import com.at.internship.schedule.exception.NotValidContactException;
@@ -60,13 +61,22 @@ public class ContactServiceImpl implements IContactService {
             .and(new LowerSpec<>("birthDay",timeLowerThan))
             .and(new EqualSpec<>("birthDay",timeEqualLike));
 
-        contactRepository.findAll().stream().forEach(ele -> System.out.println(ele.getContactPhones()));
+        //contactRepository.findAll().stream().forEach(ele -> System.out.println(ele.getContactPhones()));
 
         return contactRepository.findAll(specs, pageable);
     }
 
     @Override
     public Contact create(Contact contact) {
+        Optional<String> contactOptional = contactRepository
+            .findContactByEmail(contact.getEmailAddress());
+
+        if (contactOptional.isPresent()) {
+            throw new EmailTakenException(
+                String.format("The email %s is already taken by another contact",
+                    contact.getEmailAddress()));
+        }
+
         try{
             Contact savedContact = contactRepository.save(contact);
             return savedContact;

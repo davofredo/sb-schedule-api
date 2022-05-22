@@ -1,5 +1,6 @@
 package com.at.internship.schedule.exception.handler;
 
+import com.at.internship.schedule.exception.EmailTakenException;
 import com.at.internship.schedule.exception.custom.CustomResponseEntity;
 import com.at.internship.schedule.exception.NotFoundRecordException;
 import com.at.internship.schedule.exception.NotNullIdException;
@@ -65,11 +66,21 @@ public class ContactRequestHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NotNullIdException.class)
-    public ResponseEntity<CustomResponseEntity> handleNotNullId(NotNullIdException e) {
+    public ResponseEntity<CustomResponseEntity> handleNotNullId() {
         CustomResponseEntity cre = new CustomResponseEntity(
             LocalDateTime.now(),
             HttpStatus.BAD_REQUEST,
             "ID Cannot be null"
+        );
+        return new ResponseEntity<>(cre, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmailTakenException.class)
+    public ResponseEntity<CustomResponseEntity> handleEmailTaken(EmailTakenException e) {
+        CustomResponseEntity cre = new CustomResponseEntity(
+            LocalDateTime.now(),
+            HttpStatus.CONFLICT,
+            e.getMessage()
         );
         return new ResponseEntity<>(cre, HttpStatus.NOT_FOUND);
     }

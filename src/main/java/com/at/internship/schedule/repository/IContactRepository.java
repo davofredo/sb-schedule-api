@@ -1,19 +1,17 @@
 package com.at.internship.schedule.repository;
 
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.domain.ContactPhone;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-
+import java.util.Optional;
 
 @Repository
 public interface IContactRepository extends
     JpaRepository<Contact, Integer>,
     JpaSpecificationExecutor<Contact> {
 
-    //@Query(value = "SELECT * FROM contact AS c JOIN contact_phone AS cp ON c.id = cp.contact_id WHERE cp.contact_id = ?;")
-    //List<ContactPhone> findByContactId(Integer id);
+    @Query(value = "SELECT email FROM contact WHERE email = ?1", nativeQuery = true)
+    Optional<String> findContactByEmail(String email);
 }
