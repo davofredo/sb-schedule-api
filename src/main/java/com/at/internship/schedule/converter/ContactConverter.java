@@ -1,7 +1,6 @@
 package com.at.internship.schedule.converter;
 
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.domain.ContactPhone;
 import com.at.internship.schedule.dto.ContactDto;
 import com.at.internship.schedule.dto.ContactPhoneDto;
 import com.at.internship.schedule.utils.DateUtils;

@@ -1,7 +1,9 @@
 package com.at.internship.schedule.controller;
 
 import com.at.internship.schedule.converter.ContactConverter;
+import com.at.internship.schedule.converter.ContactCreatedConverter;
 import com.at.internship.schedule.domain.Contact;
+import com.at.internship.schedule.dto.ContactCreatedDto;
 import com.at.internship.schedule.dto.ContactDto;
 import com.at.internship.schedule.dto.ContactFilterDto;
 import com.at.internship.schedule.exception.custom.CustomResponseEntity;
@@ -23,10 +25,12 @@ public class ContactController {
 
     private final ContactServiceImpl contactService;
     private final ContactConverter contactConverter;
+    private final ContactCreatedConverter contactCreatedConverter;
 
-    public ContactController(ContactServiceImpl contactService, ContactConverter contactConverter) {
+    public ContactController(ContactServiceImpl contactService, ContactConverter contactConverter, ContactCreatedConverter contactCreatedConverter) {
         this.contactService = contactService;
         this.contactConverter = contactConverter;
+        this.contactCreatedConverter = contactCreatedConverter;
     }
 
     @GetMapping("/find")
@@ -47,10 +51,10 @@ public class ContactController {
     @PostMapping(value = "/new")
     public ResponseEntity<?> newContact(@Valid @RequestBody Contact newContact) {
         Contact contact = contactService.create(newContact);
-        ContactDto contactDto = contactConverter.toContactDto(contact);
+        ContactCreatedDto contactCreatedDto = contactCreatedConverter.toContactCreatedDto(contact);
         CustomResponseEntity cre = new CustomResponseEntity(
             LocalDateTime.now(), HttpStatus.OK,
-            "Success!", contactDto
+            "Success!", contactCreatedDto
         );
         return new ResponseEntity<>(cre, HttpStatus.OK);
     }

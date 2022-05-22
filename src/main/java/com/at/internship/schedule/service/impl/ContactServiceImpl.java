@@ -1,7 +1,6 @@
 package com.at.internship.schedule.service.impl;
 
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.domain.ContactPhone;
 import com.at.internship.schedule.dto.ContactFilterDto;
 import com.at.internship.schedule.exception.NotFoundRecordException;
 import com.at.internship.schedule.exception.NotNullIdException;
@@ -16,14 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.List;
 import java.util.Optional;
 
 @Service
