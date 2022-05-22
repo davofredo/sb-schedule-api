@@ -3,11 +3,12 @@ package com.at.internship.schedule.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**LLave primaria compuesta ej*/
 @Data
 @Entity
-public class ContactPhone {
+public class ContactPhone implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

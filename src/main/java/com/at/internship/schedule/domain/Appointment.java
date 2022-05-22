@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Data
 @Entity
 @NoArgsConstructor
-public class Appointment {
+public class Appointment implements Serializable {
     private static final String SEQUENCE_NAME = "APPOINTMENT_SEQUENCE";
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
@@ -23,6 +24,7 @@ public class Appointment {
     private LocalDateTime time;
     @Column(name = "subject")
     private String subject;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contact_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Contact contact;

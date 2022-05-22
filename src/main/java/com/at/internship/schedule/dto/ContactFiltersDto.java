@@ -16,4 +16,6 @@ public class ContactFiltersDto {
     private Date birthDay;
     @JsonFormat(pattern = "MM/dd/yyyy")
     private Date birthDayGte;
+    @JsonFormat(pattern = "MM/dd/yyyy")
+    private Date birthDayLte;
 }

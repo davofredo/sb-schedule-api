@@ -1,7 +1,9 @@
 package com.at.internship.schedule.converter;
 
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.dto.ContactDto;
+import com.at.internship.schedule.dto.ContactDetailsDto;
+import com.at.internship.schedule.dto.ContactCreateDto;
+import com.at.internship.schedule.dto.ContactUpdateDto;
 import com.at.internship.schedule.utils.DateUtils;
 import org.springframework.stereotype.Component;
 
@@ -14,24 +16,35 @@ public class ContactConverter {
         this.dateUtils = dateUtils;
     }
 
-    public ContactDto toContactDto(Contact contact) {
-        ContactDto contactDto = new ContactDto();
-        contactDto.setId(contact.getId());
-        contactDto.setFirstName(contact.getFirstName());
-        contactDto.setLastName(contact.getLastName());
-        contactDto.setEmailAddress(contact.getEmailAddress());
-        contactDto.setBirthDay(dateUtils.formatDefault(contact.getBirthDay()));
-        return contactDto;
+    public ContactDetailsDto toContactDetailsDto(Contact contact) {
+        ContactDetailsDto contactDetailsDto = new ContactDetailsDto();
+        contactDetailsDto.setId(contact.getId());
+        contactDetailsDto.setFirstName(contact.getFirstName());
+        contactDetailsDto.setLastName(contact.getLastName());
+        contactDetailsDto.setEmailAddress(contact.getEmailAddress());
+        contactDetailsDto.setBirthDay(dateUtils.formatDefault(contact.getBirthDay()));
+        return contactDetailsDto;
     }
 
-    public Contact toContact(ContactDto contactDto) {
+    public Contact updateContactDtoToContact(ContactUpdateDto contactUpdateDto) {
         Contact contact = new Contact();
-        contact.setId(contactDto.getId());
-        contact.setFirstName(contactDto.getFirstName());
-        contact.setLastName(contactDto.getLastName());
-        contact.setEmailAddress(contactDto.getEmailAddress());
-        contact.setBirthDay(dateUtils.parseDefaultDate(contactDto.getBirthDay()));
+        contact.setId(contactUpdateDto.getId());
+        contact.setFirstName(contactUpdateDto.getFirstName());
+        contact.setLastName(contactUpdateDto.getLastName());
+        contact.setEmailAddress(contactUpdateDto.getEmailAddress());
+        contact.setBirthDay(dateUtils.parseDefaultDate(contactUpdateDto.getBirthDay()));
         return contact;
     }
+
+
+    public Contact contactCreateDtoToContact(ContactCreateDto contactCreateDtoDto) {
+        Contact contact = new Contact();
+        contact.setFirstName(contactCreateDtoDto.getFirstName());
+        contact.setLastName(contactCreateDtoDto.getLastName());
+        contact.setEmailAddress(contactCreateDtoDto.getEmailAddress());
+        contact.setBirthDay(dateUtils.parseDefaultDate(contactCreateDtoDto.getBirthDay()));
+        return contact;
+    }
+
 
 }
