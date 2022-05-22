@@ -3,7 +3,10 @@ package com.at.internship.schedule.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.at.internship.schedule.domain.Contact;
+import com.at.internship.schedule.dto.ContactDto;
 import com.at.internship.schedule.service.IContactService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +39,7 @@ public class ContactController {
     }
 
     @PostMapping("/save")
-    public void save(@RequestBody Contact contact) {
+    public void save(@RequestBody @Valid ContactDto contact) {
         // Validar que actualiza o crea
         Optional<Contact> contactF = contactService.findById(contact.getId());
         if (contactF.isEmpty())
@@ -44,7 +47,7 @@ public class ContactController {
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody Contact contact) {
+    public void update(@RequestBody @Valid ContactDto contact) {
             contactService.save(contact);
     }
 

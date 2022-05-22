@@ -8,5 +8,5 @@ import lombok.Data;
 
 @Data
 public class ContactResponse extends GenericResponse {
-    List<Contact> content;
+    List<Contact> contentC;
 }

@@ -3,7 +3,10 @@ package com.at.internship.schedule.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.at.internship.schedule.domain.Contact;
+import com.at.internship.schedule.dto.ContactDto;
 import com.at.internship.schedule.dto.ContactFiltersDto;
 
 import org.springframework.data.domain.Page;
@@ -15,7 +18,7 @@ public interface IContactService {
 
     List<Contact> findAll();
 
-    void save(Contact contact);
+    void save(@Valid ContactDto contact);
 
     Optional<Contact> findById(Integer id);
 
