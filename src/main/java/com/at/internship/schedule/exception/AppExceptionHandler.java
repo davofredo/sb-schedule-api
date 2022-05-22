@@ -1,12 +1,16 @@
 package com.at.internship.schedule.exception;
 
+import com.at.internship.schedule.Constants.Error;
 import com.at.internship.schedule.response.ErrorResponse;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,8 +26,9 @@ public class AppExceptionHandler {
         if(errorMessage != null && errorMessage.contains(STR_NESTED_EXCEPTION))
             errorMessage = errorMessage.substring(0, errorMessage.indexOf(STR_NESTED_EXCEPTION));
         ErrorResponse response = new ErrorResponse();
-        response.setCode("INVALID_INPUT");
-        response.setMessage("Bad Request");
+        response.setTimestamp(LocalDateTime.now());
+        response.setCode(Error.VALIDATION_FAILED_CODE);
+        response.setMessage(Error.VALIDATION_FAILED_MESSAGE);
         response.setErrorMessages(Collections.singletonList(errorMessage));
         return response;
     }
@@ -38,9 +43,32 @@ public class AppExceptionHandler {
             errorMessages.add(fieldError.getDefaultMessage());
         });
         ErrorResponse response = new ErrorResponse();
-        response.setCode("INVALID_INPUT");
-        response.setMessage("Bad Request");
+        response.setTimestamp(LocalDateTime.now());
+        response.setCode(Error.VALIDATION_FAILED_CODE);
+        response.setMessage(Error.VALIDATION_FAILED_MESSAGE);
         response.setErrorMessages(errorMessages);
+        return response;
+    }
+
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleEmptyResultDataAccessExpection(EmptyResultDataAccessException e){
+        ErrorResponse response = new ErrorResponse();
+        response.setTimestamp(LocalDateTime.now());
+        response.setCode(Error.RECORD_NOT_FOUND_CODE);
+        response.setMessage(Error.DB_CONSTRAINT_VIOLATION_MESSAGE);
+        response.setErrorMessages(Collections.singletonList(e.getMessage()));
+        return response;
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleSqlIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e){
+        ErrorResponse response = new ErrorResponse();
+        response.setTimestamp(LocalDateTime.now());
+        response.setCode(Error.DB_CONSTRAINT_VIOLATION_CODE);
+        response.setMessage(Error.DB_CONSTRAINT_VIOLATION_MESSAGE);
+        response.setErrorMessages(Collections.singletonList(e.getMessage()));
         return response;
     }
 

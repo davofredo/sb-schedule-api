@@ -17,6 +17,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Optional;
+
 import org.springframework.data.domain.Pageable;
 
 @Service
@@ -53,6 +55,26 @@ public class AppointmentServiceImpl implements IAppointmentService {
                 .and(new ContactNameLikeSpec<>(contactNameLike));
         // Execute query
         return appointmentRepository.findAll(specs, pageable);
+    }
+
+    @Override
+    public Appointment create(Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
+
+    @Override
+    public Appointment update(Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
+
+    @Override
+    public Optional<Appointment> findById(Integer id) {
+        return appointmentRepository.findById(id);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        appointmentRepository.deleteById(id);
     }
 
     public static class ContactNameLikeSpec<Appointment> implements Specification<Appointment> {

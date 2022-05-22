@@ -1,6 +1,6 @@
 package com.at.internship.schedule.Constants;
 
-public class Validations {
+public class Validation {
     public static final String ID_VALIDATION = "Id should have 11 digits or less";
     public static final String NOT_NULL_ID_VALIDATION = "Id is required";
     public static final String NOT_NULL_FIRST_NAME_VALIDATION = "First name is required";
@@ -10,5 +10,8 @@ public class Validations {
     public static final String VALID_EMAIL_VALIDATION = "Please provide a valid email address";
 
     public static final String NOT_NULL_BIRTH_DAY_VALIDATION = "BirthDay is required";
+
+    public static final String SUCCESSFUL_ACTION_CODE = "OK";
+    public static final String SUCCESSFUL_ACTION_MESSAGE = "SUCCESS!";
 
 }
