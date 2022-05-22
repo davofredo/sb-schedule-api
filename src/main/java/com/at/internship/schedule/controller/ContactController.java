@@ -42,9 +42,6 @@ public class ContactController {
 
         return new PageImpl<>(content, page.getPageable(), page.getTotalElements());
 
-//         List<ContactDto> contactDtoList =
-//            contactService.findAll().stream().map(contactConverter::toContactDto).collect(Collectors.toList());
-//        return ResponseEntity.ok(contactDtoList);
     }
 
     @PostMapping(value = "/new")

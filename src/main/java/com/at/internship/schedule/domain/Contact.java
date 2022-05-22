@@ -38,8 +38,7 @@ public class Contact {
     private LocalDate birthDay;
 
     // Lazy load contactPhones
-    @Transient
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "contact")
+    @OneToMany(mappedBy = "contact", fetch = FetchType.LAZY)
     private List<ContactPhone> contactPhones;
 
     // Lazy load appointments
