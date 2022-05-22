@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ContactFilterDto {
+public class ContactFiltersDto {
     private Integer id;
     private String firstNameLike;
     private String lastNameLike;

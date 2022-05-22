@@ -5,7 +5,7 @@ import com.at.internship.schedule.converter.ContactDetailConverter;
 import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.dto.ContactDetailDto;
 import com.at.internship.schedule.dto.ContactDto;
-import com.at.internship.schedule.dto.ContactFilterDto;
+import com.at.internship.schedule.dto.ContactFiltersDto;
 import com.at.internship.schedule.exception.custom.CustomResponseEntity;
 import com.at.internship.schedule.service.impl.ContactServiceImpl;
 import org.springframework.data.domain.Page;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Pageable;
 
@@ -36,7 +35,7 @@ public class ContactController {
 
     @GetMapping("/find")
     public Page<ContactDto> findAll(
-        ContactFilterDto filters, Pageable pageable
+        ContactFiltersDto filters, Pageable pageable
     ) {
         Page<Contact> page = contactService.findAll(filters, pageable);
 
@@ -83,7 +82,7 @@ public class ContactController {
     }
 
     @GetMapping("/get/{contactId}")
-    private ResponseEntity<?> getContact(@PathVariable Integer contactId) {
+    private ResponseEntity<?> getContact(@Valid @PathVariable Integer contactId) {
         Contact contact = contactService.getContact(contactId);
         ContactDto contactDto = contactConverter.toContactDto(contact);
         CustomResponseEntity cre = new CustomResponseEntity(

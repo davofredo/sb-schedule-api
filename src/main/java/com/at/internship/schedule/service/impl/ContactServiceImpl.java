@@ -1,7 +1,7 @@
 package com.at.internship.schedule.service.impl;
 
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.dto.ContactFilterDto;
+import com.at.internship.schedule.dto.ContactFiltersDto;
 import com.at.internship.schedule.exception.EmailTakenException;
 import com.at.internship.schedule.exception.NotFoundRecordException;
 import com.at.internship.schedule.exception.NotNullIdException;
@@ -29,7 +29,7 @@ public class ContactServiceImpl implements IContactService {
     }
 
     @Override
-    public Page<Contact> findAll(ContactFilterDto filters, Pageable pageable) {
+    public Page<Contact> findAll(ContactFiltersDto filters, Pageable pageable) {
         String firstNameLike =
             filters.getFirstNameLike() == null ? null : String.format("%%%s%%", filters.getFirstNameLike());
 
@@ -136,6 +136,7 @@ public class ContactServiceImpl implements IContactService {
             contact.setFirstName(optionalContact.get().getFirstName());
             contact.setLastName(optionalContact.get().getLastName());
             contact.setEmailAddress(optionalContact.get().getEmailAddress());
+            contact.setBirthDay(optionalContact.get().getBirthDay());
             contact.setContactPhones(optionalContact.get().getContactPhones());
             return contact;
         }else{
