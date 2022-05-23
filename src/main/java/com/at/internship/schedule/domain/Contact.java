@@ -1,23 +1,34 @@
 package com.at.internship.schedule.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Data
-public class Contact {
+@Entity
+public class Contact implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false, length = 50)
     private String firstName;
+    @Column(nullable = false, length = 50)
     private String lastName;
+    @Column(name = "email", unique = true, nullable = false, length = 100)
     private String emailAddress;
+    @Column(nullable = false)
     private LocalDate birthDay;
-    // Lazy load contactPhones
-    private List<ContactPhone> contactPhones;
-    // Lazy load appointments
+
+    @OneToMany(mappedBy = "contact")
     private List<Appointment> appointments;
+
+    @OneToMany(mappedBy = "contact")
+    private List<ContactPhone> contactPhones;
 
     @Override
     public boolean equals(Object o) {
@@ -35,5 +46,4 @@ public class Contact {
     public String toString() {
         return String.format("%s %s (%s)", firstName, lastName, id);
     }
-
 }

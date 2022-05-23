@@ -1,19 +1,28 @@
 package com.at.internship.schedule.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Data
-public class Appointment {
+@Entity
+public class Appointment implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Integer id;
-    private Integer contactId;
+    @Column(name = "local_date_time", nullable = false)
     private LocalDateTime time;
+    @Column(nullable = false, length = 500)
     private String subject;
-    // Lazy load contacts
+    @ManyToOne
     private Contact contact;
+    @OneToMany
+    private List<AppointmentAssistant> assistants;
 
     @Override
     public boolean equals(Object o) {
