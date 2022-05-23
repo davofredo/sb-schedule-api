@@ -19,6 +19,12 @@ public interface ContactMapper {
                         dateFormat = "MM/dd/yyyy")
     })
     ContactDetailsDto convertToContactDetailsDto(Contact contact);
+
+    @Mappings(value = {
+            @Mapping(source = "birthDay", target = "birthDay",
+                    dateFormat = "MM/dd/yyyy")
+    })
+    ContactItemDto convertToContactItemDto(Contact contact);
     List<ContactItemDto> convertToContactsItemDto(List<Contact> contacts);
 
     @Mappings(value = {

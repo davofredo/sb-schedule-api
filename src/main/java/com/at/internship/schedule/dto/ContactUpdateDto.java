@@ -20,7 +20,7 @@ public class ContactUpdateDto {
     private String firstName;
     @NotNull(message = "Last name is required")
     @Length(min = 2, max = 255, message = "Last name should be at least 2 characters length and 255 maximum")
-    @Pattern(regexp = "[a-zA-ZÁÉÍÑÓÚÜáéíñóúü\\s]+", message = "First name should have only letters")
+    @Pattern(regexp = "[a-zA-ZÁÉÍÑÓÚÜáéíñóúü\\s]+", message = "Last name should have only letters")
     private String lastName;
     @Email(message = "Please provide a valid email address")
     private String emailAddress;

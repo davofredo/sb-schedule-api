@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Integer>, JpaSpecificationExecutor<Contact> {
 
-    boolean existsByEmailAddress(String email);
+    Contact findByEmailAddress(String email);
 }

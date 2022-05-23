@@ -10,5 +10,5 @@ public interface IContactService {
     Page<Contact> findAll(ContactFiltersDto filters, Pageable pageable);
     Contact findOne(Integer id);
     Contact save(Contact contact);
-    Contact delete(Integer id);
+    Contact delete(Integer id, boolean force);
 }

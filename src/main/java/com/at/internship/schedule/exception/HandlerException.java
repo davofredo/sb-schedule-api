@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -36,6 +37,20 @@ public class HandlerException {
         return response;
     }
 
+    @ExceptionHandler(value = { MethodArgumentTypeMismatchException.class })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        String errorMessage =
+                String.format("Please provide a valid %s value for param %s", ex.getParameter().getParameterType(),
+                        ex.getName());
+        ErrorResponse response = new ErrorResponse();
+        response.setTimestamp(LocalDateTime.now());
+        response.setCode(MessageConstants.STR_CODE_BAD_REQUEST);
+        response.setMessage(MessageConstants.STR_MESSAGE_BAD_REQUEST);
+        response.setErrorMessages(Collections.singletonList(errorMessage));
+        return response;
+    }
+
     @ExceptionHandler(value = {EntityNotFoundException.class })
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleEntityNotFoundException(EntityNotFoundException ex) {
@@ -60,6 +75,20 @@ public class HandlerException {
         response.setTimestamp(LocalDateTime.now());
         response.setCode(MessageConstants.STR_CODE_DB_CONSTRAINT_VIOLATION);
         response.setMessage(MessageConstants.STR_MESSAGE_DB_CONSTRAINT_VIOLATION);
+        response.setErrorMessages(Collections.singletonList(errorMessage));
+        return response;
+    }
+
+    @ExceptionHandler(value = { Exception.class })
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleException(Exception ex) {
+        String errorMessage = ex.getMessage();
+        if(errorMessage != null && errorMessage.contains(STR_NESTED_EXCEPTION))
+            errorMessage = errorMessage.substring(0, errorMessage.indexOf(STR_NESTED_EXCEPTION));
+        ErrorResponse response = new ErrorResponse();
+        response.setTimestamp(LocalDateTime.now());
+        response.setCode(MessageConstants.STR_CODE_INTERNAL_SERVER_ERROR);
+        response.setMessage(MessageConstants.STR_MESSAGE_INTERNAL_SERVER_ERROR);
         response.setErrorMessages(Collections.singletonList(errorMessage));
         return response;
     }

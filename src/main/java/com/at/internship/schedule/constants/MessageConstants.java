@@ -9,5 +9,9 @@ public class MessageConstants {
     public final static String STR_MESSAGE_RECORD_NOT_FOUND = "Record not found";
     public final static String STR_CODE_DB_CONSTRAINT_VIOLATION= "DB_CONSTRAINT_VIOLATION";
     public final static String STR_MESSAGE_DB_CONSTRAINT_VIOLATION= "Database constraint violation";
+    public final static String STR_CODE_INTERNAL_SERVER_ERROR= "INTERNAL_SERVER_ERROR";
+    public final static String STR_MESSAGE_INTERNAL_SERVER_ERROR= "Something was wrong";
+    public final static String STR_CODE_BAD_REQUEST= "BAD_REQUEST";
+    public final static String STR_MESSAGE_BAD_REQUEST= "There were errors with request params";
 
 }

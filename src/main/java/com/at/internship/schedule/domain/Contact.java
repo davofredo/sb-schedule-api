@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
@@ -20,11 +21,26 @@ public class Contact implements Serializable {
     private String emailAddress;
     private LocalDate birthDay;
 
-    @OneToMany(mappedBy = "contact", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "contact")
     private List<Appointment> appointments;
 
-    @OneToMany(mappedBy = "contact", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "contact")
     private List<ContactPhone> contactPhones;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Contact)) return false;
+        Contact contact = (Contact) o;
+        return id.equals(contact.id);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public String toString() {
+        return String.format("%s %s (%s)", firstName, lastName, id);
+    }
 }

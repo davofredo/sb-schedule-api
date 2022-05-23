@@ -62,10 +62,10 @@ public class ContactController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public GenericResponse<ContactDetailsDto> delete(@PathVariable Integer id){
+    public GenericResponse<ContactDetailsDto> delete(@PathVariable Integer id, @RequestParam(required = false) boolean force){
         return new GenericResponse<>(
                 LocalDateTime.now(), MessageConstants.STR_CODE_OK, MessageConstants.STR_MESSAGE_SUCCESS,
-                contactMapper.convertToContactDetailsDto(contactService.delete(id)));
+                contactMapper.convertToContactDetailsDto(contactService.delete(id, force)));
     }
 
 }
