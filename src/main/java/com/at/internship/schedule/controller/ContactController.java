@@ -9,6 +9,7 @@ import com.at.internship.schedule.response.PageResponse;
 import com.at.internship.schedule.service.IContactService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,6 +31,7 @@ public class ContactController {
     }
 
     @GetMapping("/find")
+    @ResponseStatus(HttpStatus.OK)
     public PageResponse<ContactItemDto> findAll(ContactFiltersDto filters, Pageable pageable) {
         Page<Contact> page = contactService.findAll(filters,pageable);
         List<ContactItemDto> contacts = contactMapper.convertToContactsItemDto(page.getContent());
@@ -41,6 +43,7 @@ public class ContactController {
     }
 
     @GetMapping("/get/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public GenericResponse<ContactDetailsDto> findOne(@PathVariable Integer id){
         return new GenericResponse<>(
                 LocalDateTime.now(), MessageConstants.STR_CODE_OK, MessageConstants.STR_MESSAGE_SUCCESS,
@@ -48,6 +51,7 @@ public class ContactController {
     }
 
     @PostMapping("/new")
+    @ResponseStatus(HttpStatus.OK)
     public GenericResponse<ContactDetailsDto> save(@RequestBody @Valid ContactCreateDto contact) {
         return new GenericResponse<>(
                 LocalDateTime.now(), MessageConstants.STR_CODE_OK, MessageConstants.STR_MESSAGE_SUCCESS,
@@ -55,6 +59,7 @@ public class ContactController {
     }
 
     @PutMapping("/update")
+    @ResponseStatus(HttpStatus.OK)
     public GenericResponse<ContactDetailsDto> update(@RequestBody @Valid ContactUpdateDto contact) {
         return new GenericResponse<>(
                 LocalDateTime.now(), MessageConstants.STR_CODE_OK, MessageConstants.STR_MESSAGE_SUCCESS,
@@ -62,6 +67,7 @@ public class ContactController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public GenericResponse<ContactDetailsDto> delete(@PathVariable Integer id, @RequestParam(required = false) boolean force){
         return new GenericResponse<>(
                 LocalDateTime.now(), MessageConstants.STR_CODE_OK, MessageConstants.STR_MESSAGE_SUCCESS,
