@@ -1,8 +1,6 @@
 package com.at.internship.schedule.converter;
 
-import com.at.internship.schedule.domain.Appointment;
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.domain.ContactPhone;
 import com.at.internship.schedule.dto.ContactDto;
 import com.at.internship.schedule.utils.DateUtils;
 
@@ -24,8 +22,8 @@ public class ContactConverter {
         contactDto.setLastName(contact.getLastName());
         contactDto.setEmailAddress(contact.getEmailAddress());
         contactDto.setBirthDay(dateUtils.formatDefault(contact.getBirthDay()));
-        //contactDto.setContactPhones(toStringContactPhones(contact.getContactPhones()));
-        //contactDto.setAppointments(toStringAppointments(contact.getAppointments()));
+        //contactDto.setContactPhones(contact.getContactPhones());
+        //contactDto.setAppointments(contact.getAppointments());
         return contactDto;
     }
 
@@ -39,20 +37,6 @@ public class ContactConverter {
         //contact.setContactPhones(contactDto.getContactPhones());
         //contact.setAppointments(contactDto.getAppointments());
         return contact;
-    }
-
-    private String toStringAppointments(Appointment appointment) {
-        if(appointment == null) return null;
-        return String.format("%s %s %s %s", 
-        appointment.getTime() == null ? "" : appointment.getTime(), 
-        appointment.getSubject() == null ? "" : appointment.getSubject());
-    }
-
-    private String toStringContactPhones(ContactPhone phone) {
-        if(phone == null) return null;
-        return String.format("%s %s %s %s", 
-        phone.getPhoneNumber() == null ? "" : phone.getPhoneNumber(), 
-        phone.getLabel() == null ? "" : phone.getLabel());
     }
 
 }

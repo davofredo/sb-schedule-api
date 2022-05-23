@@ -1,23 +1,18 @@
 package com.at.internship.schedule.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-@Data
 @Entity
 public class Contact {
-    private static final String SEQUENCE_NAME = "APPOINTMENT_SEQUENCE";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
-    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME)
     private Integer id;
+    @NotNull(message = "First name is required")
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 50)
@@ -27,13 +22,15 @@ public class Contact {
     @Column(name = "birth_day", nullable = false)
     private LocalDate birthDay;
     // Lazy load contactPhones
+    @Transient
     @OneToMany(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "phone_id", referencedColumnName = "id", insertable = false, updatable = false)
-    //private List<ContactPhone> contactPhones;
-    //// Lazy load appointments
-    //@OneToMany(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "appointment_id", referencedColumnName = "id", insertable = false, updatable = false)
-    //private List<Appointment> appointments;
+    @JoinColumn(name = "contact_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private List<ContactPhone> contactPhones;
+    // Lazy load appointments
+    @Transient
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "icontact_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private List<Appointment> appointments;
 
     @Override
     public boolean equals(Object o) {
@@ -50,6 +47,54 @@ public class Contact {
 
     public String toString() {
         return String.format("%s %s (%s)", firstName, lastName, id);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public LocalDate getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(LocalDate birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public List<ContactPhone> getContactPhones() {
+        return contactPhones;
+    }
+//
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
 }

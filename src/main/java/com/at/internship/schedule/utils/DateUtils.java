@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DateUtils {
-    private static final String FMT_DATETIME_DEFAULT = "MM/dd/yyyy hh:mm:ss";
+    private static final String FMT_DATETIME_DEFAULT = "yyyy-MM-dd";
     private static final String FMT_DATE_DEFAULT = "MM/dd/yyyy";
 
     public String formatDefault(LocalDateTime dateTime) {

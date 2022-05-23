@@ -1,12 +1,16 @@
 package com.at.internship.schedule.response;
 
-import java.util.List;
-
 import com.at.internship.schedule.domain.Contact;
 
-import lombok.Data;
-
-@Data
 public class ContactResponse extends GenericResponse {
-    List<Contact> contentC;
+
+    Contact content;
+    
+    public Contact getContent() {
+        return content;
+    }
+
+    public void setContent(Contact contact) {
+        this.content = contact;
+    }
 }

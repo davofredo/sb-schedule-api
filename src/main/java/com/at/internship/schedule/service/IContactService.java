@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.at.internship.schedule.domain.Contact;
-import com.at.internship.schedule.dto.ContactDto;
 import com.at.internship.schedule.dto.ContactFiltersDto;
 
 import org.springframework.data.domain.Page;
@@ -18,7 +17,7 @@ public interface IContactService {
 
     List<Contact> findAll();
 
-    void save(@Valid ContactDto contact);
+    void save(@Valid Contact contact);
 
     Optional<Contact> findById(Integer id);
 
@@ -26,4 +25,5 @@ public interface IContactService {
 
     List<Contact> findByFirstNameOrderByFirstNameAsc(String firstName);
     List<Contact> findByFirstNameNotLike(String nombre);
+    String findByEmailAddressNotLike(String nombre);
 }

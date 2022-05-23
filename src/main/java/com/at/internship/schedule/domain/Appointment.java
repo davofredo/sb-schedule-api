@@ -1,21 +1,15 @@
 package com.at.internship.schedule.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 public class Appointment {
-    private static final String SEQUENCE_NAME = "APPOINTMENT_SEQUENCE";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_NAME)
-    @SequenceGenerator(name = SEQUENCE_NAME, sequenceName = SEQUENCE_NAME)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     @Column(name = "contact_id", length = 11)
     private Integer contactId;
@@ -30,8 +24,10 @@ public class Appointment {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Appointment)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Appointment))
+            return false;
         Appointment that = (Appointment) o;
         return Objects.equals(id, that.id);
     }
@@ -43,6 +39,46 @@ public class Appointment {
 
     public String toString() {
         return String.format("%s. %s -- %s : %s", id, time, contact, subject);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(Integer contactId) {
+        this.contactId = contactId;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
 }

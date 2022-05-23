@@ -38,7 +38,7 @@ public class ContactServiceImpl implements IContactService {
 
     @Override
     public void delete(Integer id) {
-        contactRepository.findById(id);
+        contactRepository.deleteById(id);
     }
 
     @Override
@@ -54,6 +54,11 @@ public class ContactServiceImpl implements IContactService {
     @Override
     public List<Contact> findByFirstNameNotLike(String firstName) {
         return contactRepository.findByFirstNameNotLike(firstName);
+    }
+
+    @Override
+    public String findByEmailAddressNotLike(String nombre) {
+        return contactRepository.findByEmailAddressNotLike(nombre);
     }
     
 }
