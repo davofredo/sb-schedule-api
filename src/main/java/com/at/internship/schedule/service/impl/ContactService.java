@@ -1,5 +1,6 @@
 package com.at.internship.schedule.service.impl;
 
+import com.at.internship.schedule.constants.ContactMessageConstants;
 import com.at.internship.schedule.domain.Contact;
 import com.at.internship.schedule.dto.ContactFiltersDto;
 import com.at.internship.schedule.repository.AppointmentRepository;
@@ -36,7 +37,7 @@ public class ContactService implements IContactService {
     @Override
     public Contact findOne(Integer id) {
         return contactRepository.findById(id)
-                .orElseThrow(() -> {throw new EntityNotFoundException(String.format("Requested Contact with ID %s was not found", id));});
+                .orElseThrow(() -> {throw new EntityNotFoundException(String.format(ContactMessageConstants.STR_CONTACT_ID_NOT_FOUND, id));});
     }
 
     @Override
@@ -45,7 +46,7 @@ public class ContactService implements IContactService {
 
         Contact contactFound = contactRepository.findByEmailAddress(contact.getEmailAddress());
         if(contactFound !=null && !Objects.equals(contact.getId(), contactFound.getId()))
-            throw new DataIntegrityViolationException(String.format("The email %s is already taken by another contact", contact.getEmailAddress()));
+            throw new DataIntegrityViolationException(String.format(ContactMessageConstants.STR_CONTACT_EMAIL_ALREADY_TAKEN, contact.getEmailAddress()));
 
         Contact contactSaved = contactRepository.save(contact);
         contactSaved.setContactPhones(contactPhoneRepository.findAllByContact(contactSaved));
@@ -57,11 +58,11 @@ public class ContactService implements IContactService {
         Contact contact = this.findOne(id);
         if(!contact.getAppointments().isEmpty()){
             if(force) appointmentRepository.deleteAll(contact.getAppointments());
-            else throw new DataIntegrityViolationException(String.format("Contact #%s cannot be deleted because there are appointments assigned to them", id));
+            else throw new DataIntegrityViolationException(String.format(ContactMessageConstants.STR_CONTACT_HAS_APPOINTMENTS, id));
         }
         if(!contact.getContactPhones().isEmpty()){
             if(force) contactPhoneRepository.deleteAll(contact.getContactPhones());
-            else throw new DataIntegrityViolationException(String.format("Contact #%s cannot be deleted because there are contact phones assigned to them", id));
+            else throw new DataIntegrityViolationException(String.format(ContactMessageConstants.STR_CONTACT_HAS_CONTACT_PHONES, id));
         }
         contactRepository.delete(contact);
         return contact;

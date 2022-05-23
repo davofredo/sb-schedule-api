@@ -41,7 +41,7 @@ public class HandlerException {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
         String errorMessage =
-                String.format("Please provide a valid %s value for param %s", ex.getParameter().getParameterType(),
+                String.format(MessageConstants.STR_MESSAGE_BAD_PARAM, ex.getParameter().getParameterType(),
                         ex.getName());
         ErrorResponse response = new ErrorResponse();
         response.setTimestamp(LocalDateTime.now());

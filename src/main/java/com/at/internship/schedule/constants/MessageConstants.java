@@ -13,5 +13,6 @@ public class MessageConstants {
     public final static String STR_MESSAGE_INTERNAL_SERVER_ERROR= "Something was wrong";
     public final static String STR_CODE_BAD_REQUEST= "BAD_REQUEST";
     public final static String STR_MESSAGE_BAD_REQUEST= "There were errors with request params";
+    public final static String STR_MESSAGE_BAD_PARAM="Please provide a valid %s value for param %s";
 
 }
