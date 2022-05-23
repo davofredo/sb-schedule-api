@@ -2,8 +2,11 @@ package com.at.internship.schedule.repository;
 
 import com.at.internship.schedule.domain.Appointment;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
-public interface IAppointmentRepository {
-    List<Appointment> findAll();
+@Repository
+public interface IAppointmentRepository extends JpaRepository<Appointment, Integer>, JpaSpecificationExecutor<Appointment> {
+    
 }
