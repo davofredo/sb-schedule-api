@@ -15,8 +15,9 @@ public class Appointment implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "local_date_time")
+    @Column(name = "local_date_time", nullable = false)
     private LocalDateTime time;
+    @Column(nullable = false, length = 500)
     private String subject;
     @ManyToOne
     private Contact contact;

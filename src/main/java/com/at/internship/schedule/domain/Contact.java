@@ -15,10 +15,13 @@ public class Contact implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false, length = 50)
     private String firstName;
+    @Column(nullable = false, length = 50)
     private String lastName;
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false, length = 100)
     private String emailAddress;
+    @Column(nullable = false)
     private LocalDate birthDay;
 
     @OneToMany(mappedBy = "contact")

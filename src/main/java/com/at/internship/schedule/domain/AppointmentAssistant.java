@@ -11,6 +11,6 @@ public class AppointmentAssistant implements Serializable {
 
     @EmbeddedId
     private AppointmentAssistantPK appointmentAssistantPK;
-
+    @Column(nullable = false, length = 30)
     private String type;
 }
